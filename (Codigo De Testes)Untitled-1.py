@@ -35,55 +35,66 @@ class Aplicacao:
     def frames_da_tela(self):
         # frame da memoria
         self.frame_memoria = Frame(self.root, width=1000, height=125, bg="#D8E7F1", relief="sunken", bd=6)
-        self.frame_memoria.place(relx=0.5, y=150, anchor="center")
+        self.frame_memoria.place(relx=0.5, y=120, anchor="center")
         # frame dos botoes iniciar e parar
-        self.frame_botoes = Frame(self.root, bg="#EBF1F5")
-        self.frame_botoes.place(relx=0.5, y=250, anchor="center")
+        self.frame_botoes = Frame(self.root, bg="#D2E6F3")
+        self.frame_botoes.place(relx=0.5, y=230, anchor="center")
         # frames das ativas
-        self.frame_ativas = Frame(self.root, bg="#2C2F33", width=200, height=250, relief="sunken", bd=4)  
+        self.frame_ativas = Frame(self.root, bg="#2C2F33", width=200, height=300, relief="sunken", bd=4)  
         self.frame_ativas.place( relx=0.5, rely=0.7, anchor="center")  # Frame das Ativas
         self.frame_ativas.pack_propagate(False)
         # frame da fila   
-        self.frame_fila = Frame(self.root, bg="#2C2F33", width=200, height=250, relief="sunken", bd=4)                      
+        self.frame_fila = Frame(self.root, bg="#2C2F33", width=200, height=300, relief="sunken", bd=4)                      
         self.frame_fila.place(relx=0.15, rely=0.7,anchor="center")  # Frame da Fila
         self.frame_fila.pack_propagate(False)
         # frame das concluidas                      
-        self.frame_concluidas = Frame(self.root, bg="#2C2F33", width=200, height=250, relief="sunken", bd=4) 
+        self.frame_concluidas = Frame(self.root, bg="#2C2F33", width=200, height=300, relief="sunken", bd=4) 
         self.frame_concluidas.place( relx=0.85, rely=0.7, anchor="center")  # Frame das Concluídas
         self.frame_concluidas.pack_propagate(False)
-           
+    # ajusta os frames de acordo o modo    
+    def ajustar_tamanho_frames(self, modo):
+        if modo == "pagina":
+            largura = 200
+            altura = 300
+        else:  # overlay
+            largura = 150
+            altura = 300
+
+        self.frame_fila.config(width=largura, height=altura)
+        self.frame_ativas.config(width=largura, height=altura)
+        self.frame_concluidas.config(width=largura, height=altura)       
     # coloca os labels dentro de cada frame
     def criar_labels_listas(self):
         # label lista subrotina ativas
         self.label_ativas_titulo = Label(self.frame_ativas, text="Ativas:", bg="#EEE017", font=('Helvetica', 12, 'bold'), anchor="w")
         self.label_ativas_titulo.pack(fill=X, side=TOP)
-        self.label_ativas = Label(self.frame_ativas, text="Ativas:", bg="#EEE017", font=('Helvetica', 12))
+        self.label_ativas = Label(self.frame_ativas, text="Ativas:", bg="#EEE017", font=('Helvetica', 11,'bold'))
         self.label_ativas.pack(fill=BOTH, expand=True)
         # label lista subrotinas na fila
         self.label_fila_titulo = Label(self.frame_fila, text="Fila:", bg="#99AAB5", font=('Helvetica', 12, 'bold'), anchor="w")
         self.label_fila_titulo.pack(fill=X, side=TOP)
-        self.label_fila = Label(self.frame_fila, text="Fila:", bg="#99AAB5", font=('Helvetica', 12))
+        self.label_fila = Label(self.frame_fila, text="Fila:", bg="#99AAB5", font=('Helvetica', 11,'bold'))
         self.label_fila.pack(fill=BOTH, expand=True)
         # label lista subrotinas concluidas
         self.label_concluidas_titulo = Label(self.frame_concluidas, text="Concluídas:", bg="#41DA83", font=('Helvetica', 12, 'bold'), anchor="w")
         self.label_concluidas_titulo.pack(fill=X, side=TOP)
-        self.label_concluidas = Label(self.frame_concluidas, text="Concluídas:", bg="#41DA83", font=('Helvetica', 12))
+        self.label_concluidas = Label(self.frame_concluidas, text="Concluídas:", bg="#41DA83", font=('Helvetica', 11,'bold'))
         self.label_concluidas.pack(fill=BOTH, expand=True)
     
     # elementos da tela
     def widgets_tela(self):
         # criando botao overley
-        self.botao_overlay = Button(self.frame_botoes, text="Overlay", font=('Helvetica', 12), command=self.overley, width=10)
+        self.botao_overlay = Button(self.frame_botoes, text="Overlay", font=('Helvetica', 14), command=self.overley, width=10,bg="#72DA77",fg="#FFFFFF")
         self.botao_overlay.grid(row=0, column=1, padx=20, pady=5)
          # criando botao paginação
-        self.botao_paginacao = Button(self.frame_botoes, text="Paginação", font=('Helvetica', 12), command=self.paginacao, width=10)
+        self.botao_paginacao = Button(self.frame_botoes, text="Paginação", font=('Helvetica', 14), command=self.paginacao, width=10,bg="#72DA77",fg="#FFFFFF")
         self.botao_paginacao.grid(row=0, column=2, padx=20, pady=5)
         # criando botao parar
-        self.botao_parar = Button(self.frame_botoes, text="Parar", font=('Helvetica', 12), command=self.parar, width=10)
+        self.botao_parar = Button(self.frame_botoes, text="Parar", font=('Helvetica', 14), command=self.parar, width=10,bg="#EB2121",fg="#FFFFFF")
         self.botao_parar.grid(row=0, column=0, padx=20, pady=5)
         # label com titulo memoria
-        self.lb_memoria = Label(self.root, text="MEMÓRIA FISICA", bg="#D2E6F3", foreground="#1D0202", font=('Helvetica', 15))                      
-        self.lb_memoria.place(relx=0.5, y=70, anchor="center")
+        self.lb_memoria = Label(self.root, text="MEMÓRIA FISICA", bg="#D2E6F3", foreground="#1D0202", font=('Helvetica', 15,'bold'))                      
+        self.lb_memoria.place(relx=0.5, y=40, anchor="center")
 
     # funcoes do botao overley
     def overley(self):
@@ -92,6 +103,7 @@ class Aplicacao:
          # Remove o label do título se existir
         if hasattr(self, 'label_memoria_virtual'):
             self.label_memoria_virtual.destroy()
+        self.ajustar_tamanho_frames("overley")    
         self.iniciar_overley()
 
      # funcoes do botao paginação    
@@ -101,8 +113,9 @@ class Aplicacao:
         # Cria o label do título acima do frame da fila
         if hasattr(self, 'label_memoria_virtual'):
             self.label_memoria_virtual.destroy()
-        self.label_memoria_virtual = Label(self.root, text="MEMÓRIA VIRTUAL", bg="#23272A", foreground="#EBEBEB", font=('Helvetica', 10))                       
-        self.label_memoria_virtual.place(relx=0.15, rely=0.47, anchor="center")
+        self.label_memoria_virtual = Label(self.root, text="MEMÓRIA VIRTUAL", bg="#D2E6F3", foreground="#161414", font=('Helvetica', 12,'bold'))                       
+        self.label_memoria_virtual.place(relx=0.15, rely=0.42, anchor="center")
+        self.ajustar_tamanho_frames("pagina")
         self.iniciar_paginacao()    
 
     # funcoes botao parar
@@ -111,7 +124,9 @@ class Aplicacao:
             # percorre todos os elementos da memoria e limpa todas as subrotinas e rotina principal
             widget.destroy()
         self.resetar_subrotinas()  # reseta as subrotinas
-
+        self.fila_subrotinas.clear()  # limpa a fila também
+        self.atualizar_labels()       # força atualização imediata das listas
+        
     # reseta as listas de subrotinas
     def resetar_subrotinas(self):
         self.subrotinas_concluidas.clear()
@@ -134,9 +149,9 @@ class Aplicacao:
     # cria fisicamente a rotina principal do overley e inicia as subrotinas
     def iniciar_overley(self):
         # criando a rotina principal
-        self.rotina_principal = Frame( self.frame_memoria, bg="#A8DADC", relief=RAISED, bd=2)  
+        self.rotina_principal = Frame( self.frame_memoria, bg="#A8DADC", relief=RAISED, bd=0)  
         self.rotina_principal.place(relwidth=0.25, relheight=1, relx=0, rely=0)
-        label = Label(self.rotina_principal, text="Rotina Principal", font=("Arial", 20), bg="#A8DADC")            
+        label = Label(self.rotina_principal, text="Rotina Principal", font=("Arial", 20), bg="#F8140C")            
         label.pack(expand=True, fill=BOTH)
 
         # Iniciando as subrotinas
@@ -153,7 +168,7 @@ class Aplicacao:
                 self.executar_subrotina_paginacao(self.fila_subrotinas.pop(0), i)
     # cria fisicamente as subrotinas e seus tempos de execucao
     def executar_subrotina_overley(self, subrotina, index):
-        cor = random.choice( ["#FFADAD", "#FFD6A5", "#FDFFB6", "#CAFFBF", "#9BF6FF", "#FF4040"])  
+        cor = random.choice( ["#EAF740", "#EAF740", "#EAF740", "#EAF740", "#EAF740", "#EAF740"])  
         # cria o frame da subrotina
         frame_subrotina = Frame( self.frame_memoria, bg=cor, relief=RAISED, bd=2)
         largura_subrotina = 0.15
@@ -182,7 +197,7 @@ class Aplicacao:
         self.root.after(100, atualizar_tempo)    
 
     def executar_subrotina_paginacao(self, subrotina, index):
-        cor = random.choice([ "#F80808", "#F80808", "#F80808", "#F80808", "#F80808"])    
+        cor = random.choice([ "#F86008", "#F86008", "#F86008", "#F86008", "#F86008"])    
         num_subrotinas = 5  # 5 sub-rotinas para paginação
         largura_subrotina = 1.00 / num_subrotinas  # Usa quase toda a largura
         posicoes_alinhadas = [i * largura_subrotina for i in range(num_subrotinas)]
