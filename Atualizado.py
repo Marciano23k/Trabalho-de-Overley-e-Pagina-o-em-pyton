@@ -1,6 +1,5 @@
 from tkinter import *
 import random
-# Codigo original
 root = Tk()  # Criando a janela
 
 
@@ -12,7 +11,6 @@ class Aplicacao:
         self.widgets_tela()
 
         self.subrotinas_ativas = {}  # subrotinas ativas
-        # self.subrotinas_fila = []  # fila de subrotinas pendentes
         self.subrotinas_concluidas = []  # subrotinas finalizadas
         self.labels_tempo = {}  # labels para exibir tempo restante
         self.fila_subrotinas = []  # fila de subrotinas pendentes
@@ -25,7 +23,7 @@ class Aplicacao:
 
         # configura a tela da janela
     def tela(self):
-        # a um titulo para a janela
+        # um titulo para a janela
         self.root.title("Simulador de Overlay e Paginaçao")
         self.root.configure(background="#D2E6F3")  # cor de fundo da janela
         self.root.geometry("1100x600")  # tamanho da janela
@@ -60,8 +58,8 @@ class Aplicacao:
         self.frame_concluidas.place(
             relx=0.85, rely=0.7, anchor="center")  # Frame das Concluídas
         self.frame_concluidas.pack_propagate(False)
+    
     # ajusta os frames de acordo o modo
-
     def ajustar_tamanho_frames(self, modo):
         if modo == "pagina":
             largura = 200
@@ -73,8 +71,8 @@ class Aplicacao:
         self.frame_fila.config(width=largura, height=altura)
         self.frame_ativas.config(width=largura, height=altura)
         self.frame_concluidas.config(width=largura, height=altura)
+    
     # coloca os labels dentro de cada frame
-
     def criar_labels_listas(self):
         # label lista subrotina ativas
         self.label_ativas_titulo = Label(self.frame_ativas, text="Ativas:", bg="#D2E6F3", font=(
@@ -170,7 +168,7 @@ class Aplicacao:
             self.fila_subrotinas = [f"Subrotina {i + 1}" for i in range(15)]
             self.enderecos_virtuais = {}
         self.tempo_execucao = {sub: random.randint(
-            3000, 7000) for sub in self.fila_subrotinas}
+            4000, 10000) for sub in self.fila_subrotinas}
         self.resetar_subrotinas()
 
     # cria fisicamente a rotina principal do overley e inicia as subrotinas
@@ -188,8 +186,8 @@ class Aplicacao:
             if self.fila_subrotinas:  # verifica se ainda tem subrotinas na fila
                 # tira da fila e executa na posicao i da memoria
                 self.executar_subrotina_overley(self.fila_subrotinas.pop(0), i)
-     # cria fisicamente a rotina da paginacao e inicia as subrotinas
-
+    
+    # cria fisicamente a rotina da paginacao e inicia as subrotinas
     def iniciar_paginacao(self):
         # Iniciando as subrotinas
         for i in range(5):
@@ -197,8 +195,8 @@ class Aplicacao:
                 # tira da fila e executa na posicao i da memoria
                 self.executar_subrotina_paginacao(
                     self.fila_subrotinas.pop(0), i)
-    # cria fisicamente as subrotinas e seus tempos de execucao
-
+    
+    # cria fisicamente as subrotinas do overley e seus tempos de execucao
     def executar_subrotina_overley(self, subrotina, index):
         cor = random.choice(
             ["#EAF740", "#EAF740", "#EAF740", "#EAF740", "#EAF740", "#EAF740"])
@@ -222,8 +220,8 @@ class Aplicacao:
         tempo_label.pack()
         self.labels_tempo[subrotina] = tempo_label
         self.subrotinas_ativas[index] = subrotina
+        
         # Adiciona a função de atualização de tempo
-
         def atualizar_tempo():
             nonlocal tempo_restante
             if tempo_restante > 0:
@@ -235,7 +233,7 @@ class Aplicacao:
                 self.finalizar_subrotina_overley(
                     subrotina, index, frame_subrotina)
         self.root.after(100, atualizar_tempo)
-
+    # cria fisicamente as subrotinas da paginação e seus tempos de execucao
     def executar_subrotina_paginacao(self, subrotina, index):
         cor = random.choice(
             ["#EEE017", "#EEE017", "#EEE017", "#EEE017", "#EEE017"])
